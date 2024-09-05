@@ -8,12 +8,21 @@
 </head>
 <body>
     <div class="data-hora">
-        <p id="diaSemana">Segunda Feira</p>
-        <p id="diaMesAno">27/08/2024</p>
-        <p id="hora">08:45:38</p>
+        <p id="dia-semana">Segunda-Feira</p>
+        <p id="dia-mes-ano">27/08/2024</p>
+        <p id="hora-min-seg">08:45:38</p>
     </div>
-    <button>Registrar ponto!</button>
+    <dialog id="dialog-ponto">
+       <p> Data</p>
+       <p> Horas</p>
+        <button>Entrada</button>
+        <button>Intervalo</button>
+        <button>Volta Intervalo</button>
+        <button>Saída</button>
+        <button id = "dialog-fechar">X</button>
+    </dialog>
+    <button id="reg-Ponto">Registrar ponto!</button>
 
-    <script src="js/index.js"> </script>
+    <script src="js/index.js"></script>
 </body>
 </html>
