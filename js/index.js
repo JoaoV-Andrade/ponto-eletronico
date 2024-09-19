@@ -7,20 +7,26 @@ const arrayDayWeek = ["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Q
 const dialogPonto = document.getElementById("dialog-ponto");
 
 
-
-
 navigator.geolocation.getCurrentPosition((position) =>{
     console.log(position);
     console.log(position.coords.latitude);
     console.log(position.coords.longitude);
 });
 
-
-
+let proxPonto= {
+    "entrada": "intervalo",
+    "intervalo": "volta-intervalo",
+    "volta-intervalo": "saida",
+    "saida": "entrada"
+}
 
 const regPonto = document.getElementById("reg-Ponto");
 regPonto.addEventListener('click', () => {
-    dialogPonto.showModal();
+let dialogSelect = document.getElementById("select-tipos-ponto");
+let ultimoPonto = localStorage.getItem("tipoUltimoPonto");
+dialogSelect.value = proxPonto[ultimoPonto];
+
+dialogPonto.showModal();
 });
 
 
@@ -43,19 +49,35 @@ btnDialogRegistrarPonto.addEventListener("click", ()=>{
         "id": 1
     }
 
-    localStorage.setItem("registro",JSON.stringify(ponto));
+    salvarRegistroLocalStorage(ponto);
+    localStorage.setItem("tipoUltimoPonto", tipoPonto);
 
     console.log(ponto);
+    dialogPonto.close();
     
 
-    //someto o ulimo resgistro esta sendo salvo
-    //como resolver isso , de modo que eu persista todos os pontos?
+   
 });
 
-// salvar o ultimo tipo de ponto registrado pelo usuario
-// fazer o select considerar o ultim ponto e selcioar, por padrao
-//o proximo possivel ponto de usuário
+//------------------FUNCOES-----------------------------
+function recuperaPontosLocalStorage(){
+    let todosOsPontos = localStorage.getItem("registro");
 
+    if(!todosOsPontos){
+        return[];
+    }
+
+    return JSON.parse(todosOsPontos);
+}
+
+function salvarRegistroLocalStorage(ponto){
+    let pontos = recuperaPontosLocalStorage();
+    pontos.push(ponto);
+
+
+    localStorage.setItem("registro",JSON.stringify(ponto));
+
+}
 
 function daySemana() {
     
@@ -77,7 +99,7 @@ function atualizaHora() {
     horaMinSeg.textContent = horaCompleta();
 }
 
-
+atualizaHora();
 setInterval(atualizaHora, 1000);
 
 diaSemana.textContent = daySemana();
