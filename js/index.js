@@ -75,7 +75,7 @@ function salvarRegistroLocalStorage(ponto){
     pontos.push(ponto);
 
 
-    localStorage.setItem("registro",JSON.stringify(ponto));
+    localStorage.setItem("registro",JSON.stringify(pontos));
 
 }
 
